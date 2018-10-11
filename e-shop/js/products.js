@@ -53,10 +53,10 @@ function addProduct(item){
     //preco
     if(item.onSale){
         //preco em promocao
-        stub.find(".product-price").html("R$" + item.promotionalValue);
+        stub.find(".product-price").html("R$" + item.promotionalValue.toFixed(2));
         //preco normal
         stub.find(".product-price").append(
-            " <del class='product-old-price'>R$" + item.value + "</del>"
+            " <del class='product-old-price'>R$" + item.value.toFixed(2) + "</del>"
         );
         //tag de % off
         stub.find(".product-label span").html("Promoção");
@@ -66,7 +66,7 @@ function addProduct(item){
         //tags.html("Promoção");
     }else{
         //sem promocao
-        stub.find(".product-price").html("R$" + item.value);
+        stub.find(".product-price").html("R$" + item.value.toFixed(2));
     }
 
     //imagens
