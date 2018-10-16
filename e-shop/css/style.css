@@ -367,6 +367,17 @@ textarea.input {
   max-width: 400px;
 }
 
+.usar-endereco {
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
+.header-search2 {
+  display: inline-block;
+  margin-bottom: 15px;
+  max-width: 400px;
+}
+
 .header-search>form {
   position: relative;
 }
