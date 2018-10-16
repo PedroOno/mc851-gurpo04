@@ -1217,6 +1217,15 @@ textarea.input {
   border-bottom: 1px solid #DADADA;
 }
 
+.product-image {
+  background-size: contain;
+  position: absolute;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100%;
+  width: 100%;
+}
+
 /*-- store filter --*/
 
 .row-filter {
