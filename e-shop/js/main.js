@@ -1,3 +1,5 @@
+var CLIENTS_API_URL = "http://ec2-18-231-28-232.sa-east-1.compute.amazonaws.com:3002";
+
 (function($) {
   "use strict"
 

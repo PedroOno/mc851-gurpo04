@@ -6,6 +6,7 @@ $(function(){
 
 function getProducts(){
     var urlParams = new URLSearchParams(window.location.search);
+    var nome = urlParams.get('nome');
     var categoria = urlParams.get('categoria');
     var marca = urlParams.get('marca');
     var pagina = urlParams.get('pagina');
@@ -13,6 +14,10 @@ function getProducts(){
     var data = {
         page: pagina == null? 0 : pagina,
         itemsPerPage: 9        
+    }
+
+    if(nome != null){
+        data.name = nome;
     }
 
     if(categoria != null){
