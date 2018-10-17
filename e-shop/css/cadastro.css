@@ -151,7 +151,7 @@
   
   
   /*---------------------------------------------*/
-  .input100 {
+  .input100-login , .input100-register {
     color: #555555;
   
     display: block;
@@ -187,7 +187,7 @@
     transform: scaleX(1.1) scaleY(1.3);
   }
   
-  .input100:focus + .focus-input100 {
+  .input100-login:focus + .focus-input100 ,  .input100-register:focus + .focus-input100{
     visibility: visible;
     opacity: 1;
   
@@ -307,7 +307,7 @@
   /*------------------------------------------------------------------
   [ Alert validate ]*/
   
-  .validate-input {
+  .validate-input-login , .validate-input-register {
     position: relative;
   }
   
