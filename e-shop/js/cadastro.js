@@ -1,5 +1,9 @@
 
 (function ($) {
+    if(Cookies.get("usuario") !== undefined){
+        window.location.href = "./products.html";
+    }
+
     function doLogin(email, password){
         $('#alert-login').css("display", "none");
 
