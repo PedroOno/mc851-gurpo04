@@ -1,5 +1,53 @@
 var CLIENTS_API_URL = "http://ec2-18-231-28-232.sa-east-1.compute.amazonaws.com:3002";
 var ENDERECOS_API_URL = "http://wsendereco.tk/api/enderecos";
+var SITE_API_URL = "http://ec2-54-233-234-42.sa-east-1.compute.amazonaws.com:4000/api/v1";
+
+$(function(){
+  verifyLogin();
+});
+
+function verifyLogin(){
+  var token = Cookies.get("token");
+  if(token !== undefined){
+      var email = token.split(":")[0];
+      var usuario = Cookies.getJSON("usuario");
+      if(usuario !== undefined){
+          if(usuario.email === email){
+              populateUserData(usuario);
+              return;
+          }
+      }
+
+      $.get( SITE_API_URL + "/cpf/" + email, function( data ) {
+          var json = JSON.parse(data);
+          if(json.status == 200){
+              $.post( CLIENTS_API_URL + "/users/" + json.cpf, 
+                      { tokenSessao : token }, function( data ) {
+
+                  data.cpf = json.cpf;
+                  Cookies.set("usuario", data);
+                  populateUserData(data);
+              });
+          }
+      });
+  }
+}
+
+function populateUserData(usuario){
+  var accountHeader = $(".header-account");
+  if(accountHeader.length > 0){
+    $("#userid").replaceWith("<a>Olá " + usuario.nome + "!</a>");
+  }
+
+  $("#headerconta").show();
+  $("#minhaconta").show();
+}
+
+$("#logout").click(function(){
+  Cookies.remove("token");
+  Cookies.remove("usuario");
+  window.location.href = "./cadastro.html";
+});
 
 (function($) {
   "use strict"

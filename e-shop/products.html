@@ -40,7 +40,6 @@
 <body>
 	<!-- HEADER -->
 	<header>
-
 		<!-- header -->
 		<div id="header">
 			<div class="container">
@@ -65,19 +64,20 @@
 				<div class="pull-right">
 					<ul class="header-btns">
 						<!-- Account -->
-						<li class="header-account dropdown default-dropdown" style="width: 190px;">
+						<li class="header-account dropdown default-dropdown" style="width: 210px;">
 							<div class="dropdown-toggle" role="button" data-toggle="dropdown" aria-expanded="true">
-								<div class="header-btns-icon">
+								<div id="headerconta" class="header-btns-icon" style="display: none;">
 									<i class="fa fa-user-o"></i>
 								</div>
-								<strong class="text-uppercase">Minha Conta <i class="fa fa-caret-down"></i></strong>
+								<strong id="minhaconta" class="text-uppercase" style="display: none;">Minha Conta <i class="fa fa-caret-down"></i></strong>
 							</div>
-							<a href="./cadastro.html" class="text-uppercase">Entrar / Cadastrar</a>
+							<a id="userid" href="./cadastro.html" class="text-uppercase" style="float: right;">
+								<i class="fa fa-unlock-alt"></i> <b>Entrar/Cadastrar</b>
+							</a>
 							<ul class="custom-menu">
 								<li><a href="#"><i class="fa fa-user-o"></i> Minha Conta</a></li>
 								<li><a href="#"><i class="fa fa-check"></i> Meu Carrinho</a></li>
-								<li><a href="#"><i class="fa fa-unlock-alt"></i> Entrar</a></li>
-								<li><a href="#"><i class="fa fa-user-plus"></i> Cadastrar</a></li>
+								<li><a id="logout" href="#"><i class="fa fa-unlock-alt"></i> Sair</a></li>
 							</ul>
 						</li>
 						<!-- /Account -->
@@ -528,6 +528,7 @@
 	<script src="js/nouislider.min.js"></script>
 	<script src="js/jquery.zoom.min.js"></script>
 	<script src="js/main.js"></script>
+	<script src="js/js.cookie.js"></script>
 	<script src="js/products.js"></script>
 
 </body>

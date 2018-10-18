@@ -11,19 +11,26 @@
             password = $("#password").val();
         }
 
-        $.ajax({
-            type: "POST",
-            url: CLIENTS_API_URL + "/login",
-            contentType : "application/json",
-            data: JSON.stringify({ email: email, senha: password }),
-            success: function(data){
-                Cookies.set('token', data.sessionToken, { expires: 7 });
-                alert("token de login: " + data.sessionToken);
-                window.location.href = "./products.html";
-            },
-            error: function(error){
+        $.get( SITE_API_URL + "/cpf/" + email, function( data ) {
+            var json = JSON.parse(data);
+            if(json.status == 200){
+                $.ajax({
+                    type: "POST",
+                    url: CLIENTS_API_URL + "/login",
+                    contentType : "application/json",
+                    data: JSON.stringify({ email: email, senha: password }),
+                    success: function(data){
+                        Cookies.set('token', data.sessionToken, { expires: 7 });
+                        console.log("token de login: " + data.sessionToken);
+                        window.location.href = "./products.html";
+                    },
+                    error: function(error){
+                        $('#alert-login').css("display", "block");
+                    },
+                });
+            }else{
                 $('#alert-login').css("display", "block");
-            },
+            }
         });
     }
 
@@ -43,13 +50,29 @@
                 idGrupo: 0
             }),
             success: function(data){
+                registerOnSite();
+
                 Cookies.set('token', data.registerToken, { expires: 7 });
-                alert("token de cadastro: " + data.registerToken);
+                console.log("token de cadastro: " + data.registerToken);
                 confirmRegister(data.registerToken);
             },
             error: function(error){
                 $('#alert-register').css("display", "block");
             },
+        });
+    }
+
+    function registerOnSite(){
+        $.ajax({
+            type: "PUT",
+            url: SITE_API_URL + "/cpf",
+            data: {
+                "email": $("#email2").val(),
+                "cpf": $("#cpf").val(),
+            },
+            success: function(data){
+                console.log("site register response: " + data);
+            }
         });
     }
 
@@ -62,7 +85,7 @@
                 registerToken: registerToken
             }),
             success: function(data){
-                alert(data.message);
+                console.log(data.message);
                 doLogin($("#email2").val(), $("#password2").val());
             },
             error: function(error){
