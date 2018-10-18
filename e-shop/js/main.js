@@ -1,6 +1,7 @@
 var CLIENTS_API_URL = "http://ec2-18-231-28-232.sa-east-1.compute.amazonaws.com:3002";
 var ENDERECOS_API_URL = "http://wsendereco.tk/api/enderecos";
 var SITE_API_URL = "http://ec2-54-233-234-42.sa-east-1.compute.amazonaws.com:4000/api/v1";
+var api_produtos = "http://ec2-18-218-218-216.us-east-2.compute.amazonaws.com:8080/api";
 
 function verifyLogin(){
   var token = Cookies.get("token");
@@ -140,28 +141,6 @@ function populateUserData(usuario){
       },
     ]
   });
-
-  // PRODUCT DETAILS SLICK
-  $('#product-main-view').slick({
-    infinite: true,
-    speed: 300,
-    dots: false,
-    arrows: true,
-    fade: true,
-    asNavFor: '#product-view',
-  });
-
-  $('#product-view').slick({
-    slidesToShow: 3,
-    slidesToScroll: 1,
-    arrows: true,
-    centerMode: true,
-    focusOnSelect: true,
-    asNavFor: '#product-main-view',
-  });
-
-  // PRODUCT ZOOM
-  $('#product-main-view .product-view').zoom();
 
   // PRICE SLIDER
   var slider = document.getElementById('price-slider');

@@ -1,5 +1,3 @@
-var api_produtos = "http://ec2-18-218-218-216.us-east-2.compute.amazonaws.com:8080/api";
-
 $(function(){
     getProducts();
 });
@@ -39,7 +37,9 @@ function getProducts(){
             200: function(data) {
               for(var i = 0; i < data.content.length; i++){
                   var item = data.content[i];
-                  addProduct(item);
+                  if(item.availableToSell){
+                    addProduct(item);
+                  }
               }
             }
           }
@@ -52,9 +52,14 @@ function addProduct(item){
     //tira o id de stub
     stub.removeAttr("id");
 
+    var productUrl = "./product-page.html?id=" + item.id;
+
     //popula informacoes do produto
+    //id
+    stub.attr("prod-id", item.id);
     //nome
     stub.find(".product-name a").html(item.name);
+    stub.find(".product-name a").attr("href", productUrl);
     //preco
     if(item.onSale){
         //preco em promocao
@@ -82,6 +87,11 @@ function addProduct(item){
             stub.find(".product-image").css("background-image", "url(" + extras.images[0] + ")");
         }
     }
+    
+    //botoes
+    stub.find(".main-btn").click(function(){
+        window.location.href = productUrl;
+    });;
 
     //adiciona na lista de produtos
     stub.appendTo("#productsList");
