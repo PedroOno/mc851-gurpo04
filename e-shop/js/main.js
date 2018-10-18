@@ -2,8 +2,10 @@ var CLIENTS_API_URL = "http://ec2-18-231-28-232.sa-east-1.compute.amazonaws.com:
 var ENDERECOS_API_URL = "http://wsendereco.tk/api/enderecos";
 var SITE_API_URL = "http://ec2-54-233-234-42.sa-east-1.compute.amazonaws.com:4000/api/v1";
 
-$(window).load(function(){
-  verifyLogin();
+$(document).ready(function() {
+  $(window).load(function(){
+    verifyLogin();
+  });
 });
 
 function verifyLogin(){
