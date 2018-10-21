@@ -96,7 +96,8 @@ function applyProduct(data){
     });
 
     //adicionar ao carrinho
-    $(".detalhes .add-to-cart").click(function(){
+    $(".detalhes .add-to-cart").click(function(e){
+        e.stopPropagation();
         data.quantity = parseInt($(".order-quantity").val());
         addToCart(data, true);
     });

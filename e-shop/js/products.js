@@ -93,7 +93,8 @@ function addProduct(item){
         window.location.href = productUrl;
     });;
 
-    stub.find(".add-to-cart").click(function(){
+    stub.find(".add-to-cart").click(function(e){
+        e.stopPropagation();
         item.quantity = 1;
         addToCart(item, true);
     });

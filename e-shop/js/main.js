@@ -31,7 +31,11 @@ function loadCart(){
 }
 
 function addToCart(item, updateCart){
+
   if(updateCart){
+    $('.header-cart').addClass("open");
+    $('body').scrollTo('.header-cart');
+
     for(var i = 0; i < cart.products.length; i++){
       if(cart.products[i].id === item.id){
         cart.products[i].quantity += item.quantity;
@@ -76,7 +80,8 @@ function addToCart(item, updateCart){
 
   var id = cart.products.length - 1;
 
-  $("." + item.id + " button").click(function(){
+  $("." + item.id + " button").click(function(e){
+    e.stopPropagation();
     cart.products = jQuery.grep(cart.products, function(value) {
       return value != item;
     });
