@@ -31,10 +31,9 @@ function loadCart(){
 }
 
 function addToCart(item, updateCart){
-
   if(updateCart){
     $('.header-cart').addClass("open");
-    $('body').scrollTo('.header-cart');
+    $('body').scrollTo('.header-cart', 300);
 
     for(var i = 0; i < cart.products.length; i++){
       if(cart.products[i].id === item.id){
@@ -103,6 +102,12 @@ function updateCartValue(){
   }
   $(".header-cart .total-value").html("R$" + total.toFixed(2));
   $(".header-cart .total-qty").html(cart.products.length);
+
+  if(cart.products.length > 0){
+    $("a.primary-btn").css("display", "block");
+  }else{
+    $("a.primary-btn").css("display", "none");
+  }
 }
 
 function verifyLogin(){
