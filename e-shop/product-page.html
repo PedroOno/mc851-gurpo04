@@ -76,7 +76,7 @@
 	<div id="breadcrumb">
 		<div class="container">
 			<ul class="breadcrumb">
-				<li><a href="#">Home</a></li>
+				<li><a href="./products.html">Home</a></li>
 				<li><a href="./products.html">Produtos</a></li>
 				<li class="afterload" style="display:none;"><a id="categ" href="#">Category</a></li>
 				<li class="active afterload" style="display:none;">Product Name Goes Here</li>
@@ -92,7 +92,7 @@
 			<!-- row -->
 			<div class="row">
 				<!--  Product Details -->
-				<div class="product product-details clearfix">
+				<div class="detalhes product product-details clearfix">
 					<!-- imagens -->
 					<div id="gallery" class="col-md-6">
 					</div>
@@ -146,6 +146,7 @@
 			$(window).load(function(){
 				$("#header").load("header.html", function(){
 					verifyLogin();
+					loadCart();
 				});
 				
 				$("#footer").load("footer.html");

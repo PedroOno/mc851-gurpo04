@@ -93,6 +93,11 @@ function addProduct(item){
         window.location.href = productUrl;
     });;
 
+    stub.find(".add-to-cart").click(function(){
+        item.quantity = 1;
+        addToCart(item, true);
+    });
+
     //adiciona na lista de produtos
     stub.appendTo("#productsList");
     //torna o clone visivel

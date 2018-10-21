@@ -42,7 +42,7 @@ function applyProduct(data){
     }*/
 
     //nome
-    $(".product-name").html(data.name);
+    $(".detalhes .product-name").html(data.name);
     $(".breadcrumb .active").html(data.name);
 
     //categoria
@@ -52,20 +52,20 @@ function applyProduct(data){
     //preco
     if(data.onSale){
         //preco em promocao
-        $(".product-price").html("R$" + data.promotionalValue.toFixed(2));
+        $(".detalhes .product-price").html("R$" + data.promotionalValue.toFixed(2));
         //preco normal
-        $(".product-price").append(
+        $(".detalhes .product-price").append(
             " <del class='product-old-price'>R$" + data.value.toFixed(2) + "</del>"
         );
         //tag de % off
-        $(".product-label span").html("Promoção");
+        $(".detalhes .product-label span").html("Promoção");
         var percentOff = (1 - (data.promotionalValue / data.value)) * 100;
-        $(".product-label .sale").html("-" + Math.floor(percentOff) + "%");
-        $(".product-label").toggle();
+        $(".detalhes .product-label .sale").html("-" + Math.floor(percentOff) + "%");
+        $(".detalhes .product-label").toggle();
         //tags.html("Promoção");
     }else{
         //sem promocao
-        $(".product-price").html("R$" + data.value.toFixed(2));
+        $(".detalhes .product-price").html("R$" + data.value.toFixed(2));
     }
     
     //marca
@@ -93,6 +93,12 @@ function applyProduct(data){
         }
 
         $(".order-quantity").val(quantity);
+    });
+
+    //adicionar ao carrinho
+    $(".detalhes .add-to-cart").click(function(){
+        data.quantity = parseInt($(".order-quantity").val());
+        addToCart(data, true);
     });
 
     //extras
