@@ -20,3 +20,23 @@ $(function(){
     });
   });
 });
+
+function calculaFrete(){
+    $.ajax({
+        type: "POST",
+        url: FRETE_API_URL,
+        contentType: "application/x-www-form-urlencoded",
+        data: {
+            "CEP": $("#cep").val()
+        },
+        success: function(data){
+            $("#precoPAC").html(data.valor);
+            $("#precoSEDEX").html(data.valor);
+            // $("#precoPAC").html(data.pac);
+            // $("#precoSEDEX").html(data.sedex);
+        },
+        error: function(error){
+            $("#alert-cep").css("display", "block");
+        }
+    });
+}
