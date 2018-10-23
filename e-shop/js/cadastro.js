@@ -4,7 +4,7 @@
         window.location.href = "./products.html";
     }
 
-    function doLogin(email, password){
+    function doLogin(email, password, sendAddress){
         $('#alert-login').css("display", "none");
 
         if(email == null){
@@ -27,6 +27,10 @@
                         Cookies.set('token', data.sessionToken, { expires: 7 });
                         console.log("token de login: " + data.sessionToken);
                         window.location.href = "./products.html";
+
+                        if(sendAddress){
+                          registerAddress(data.sessionToken);
+                        }
                     },
                     error: function(error){
                         $('#alert-login').css("display", "block");
@@ -54,6 +58,7 @@
                 idGrupo: 0
             }),
             success: function(data){
+                registerAddress();
                 registerOnSite();
 
                 Cookies.set('token', data.registerToken, { expires: 7 });
@@ -64,6 +69,31 @@
                 $('#alert-register').css("display", "block");
             },
         });
+    }
+
+    function registerAddress(sessionToken){
+      $.ajax({
+          type: "POST",
+          url: CLIENTS_API_URL + "/addresses/" + $("#cpf").val() + "/add",
+          contentType : "application/json",
+          data: JSON.stringify({
+              "tokenSessao": sessionToken,
+              "cep": $("#cep").val(),
+              "rua": $("#endereco").val(),
+              "bairro": $("#bairro").val(),
+              "numeroCasa": $("#numero-casa").val(),
+              "complemento": $("#complemento").val(),
+              "cidade": $("#cidade").val(),
+              "estado": $("#estado").val(),
+              "referencia": $("#referencia").val()
+          }),
+          success: function(data){
+            console.log("endereco cadastrado. id: " + data.id);
+          },
+          error: function(error){
+            console.log("nao foi possivel cadastrar endereco: " + error);
+          },
+      });
     }
 
     function registerOnSite(){
@@ -90,7 +120,7 @@
             }),
             success: function(data){
                 console.log(data.message);
-                doLogin($("#email2").val(), $("#password2").val());
+                doLogin($("#email2").val(), $("#password2").val(), true);
             },
             error: function(error){
                 $('#alert-register').css("display", "block");
@@ -138,7 +168,7 @@
         }
 
         if(check){
-            doLogin(null, null);
+            doLogin(null, null, false);
         }
 
         return false;
@@ -220,35 +250,35 @@
 
         }else if($(input).attr('type') == 'ncpf'){
             var strCPF = $(input).val().trim();
-            strCPF = strCPF.replace(/[^\d]+/g,'');	
+            strCPF = strCPF.replace(/[^\d]+/g,'');
             var Soma;
             var Resto;
             Soma = 0;
             if (strCPF.length != 11 ||
-                strCPF === "00000000000" || 
-                strCPF === "11111111111" || 
-                strCPF === "22222222222" || 
-                strCPF === "33333333333" || 
-                strCPF === "44444444444" || 
-                strCPF === "55555555555" || 
-                strCPF === "66666666666" || 
-                strCPF === "77777777777" || 
-                strCPF === "88888888888" || 
+                strCPF === "00000000000" ||
+                strCPF === "11111111111" ||
+                strCPF === "22222222222" ||
+                strCPF === "33333333333" ||
+                strCPF === "44444444444" ||
+                strCPF === "55555555555" ||
+                strCPF === "66666666666" ||
+                strCPF === "77777777777" ||
+                strCPF === "88888888888" ||
                 strCPF === "99999999999") return false;
-                
+
             for (var i=1; i<=9; i++) Soma = Soma + parseInt(strCPF.substring(i-1, i)) * (11 - i);
             Resto = (Soma * 10) % 11;
-            
+
             if ((Resto == 10) || (Resto == 11))  Resto = 0;
             if (Resto != parseInt(strCPF.substring(9, 10)) ) return false;
-            
+
             Soma = 0;
             for (var i = 1; i <= 10; i++) Soma = Soma + parseInt(strCPF.substring(i-1, i)) * (12 - i);
             Resto = (Soma * 10) % 11;
-            
+
             if ((Resto == 10) || (Resto == 11))  Resto = 0;
             if (Resto != parseInt(strCPF.substring(10, 11) ) ) return false;
-        }         
+        }
     }
 
     function showValidate(input) {

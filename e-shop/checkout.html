@@ -42,7 +42,7 @@
 	<header>
 
 		<!-- header -->
-		<div id="header">			
+		<div id="header">
 		</div>
 		<!-- container -->
 	</header>
@@ -72,25 +72,37 @@
 								<h3 class="title">Checkout</h3>
 							</div>
 							<div class="usar-endereco">
-								<button class="primary-btn">Usar mesmo endereço cadastrado</button>
+								<button id="buscar-endereco" class="primary-btn">Usar mesmo endereço cadastrado</button>
 							</div>
 							<div class="form-group">
-								<input class="input" type="text" name="endereço" placeholder="Endereço">
+								<input class="input" id="cep" type="text" name="cep" placeholder="CEP">
 							</div>
 							<div class="form-group">
-								<input class="input" type="text" name="cidade" placeholder="Cidade">
+								<input class="input" id="endereco" type="text" name="endereço" placeholder="Endereço">
 							</div>
 							<div class="form-group">
-								<input class="input" type="text" name="estado" placeholder="Estado">
+								<input class="input" id="cidade" type="text" name="cidade" placeholder="Cidade">
 							</div>
 							<div class="form-group">
-								<input class="input" type="text" name="país" placeholder="País">
+								<input class="input" id="estado" type="text" name="estado" placeholder="Estado">
 							</div>
 							<div class="form-group">
-								<input class="input" type="text" name="cep" placeholder="CEP">
+								<input class="input" id="bairro" type="text" name="bairro" placeholder="Bairro">
 							</div>
 							<div class="form-group">
-								<input class="input" type="tel" name="tel" placeholder="Telefone">
+								<input class="input" id="referencia" type="text" name="referencia" placeholder="Referência">
+							</div>
+							<div class="form-group">
+								<input class="input" id="numero-casa" type="text" name="numero-casa" placeholder="Número da casa">
+							</div>
+							<div class="form-group">
+								<input class="input" id="complemento" type="text" name="complemento" placeholder="Complemento">
+							</div>
+							<div id="alert-cep" class="alert alert-danger" style="display: none;" role="alert">
+								Falha ao calcular frete
+							</div>
+							<div>
+								<button id="calc-frete" class="primary-btn" style="float: right;">Calcular Frete</button>
 							</div>
 						</div>
 					</div>
@@ -178,7 +190,7 @@
 										<td class="qty text-center"><input class="input" type="number" value="1"></td>
 										<td class="total text-center"><strong class="primary-color">$32.50</strong></td>
 										<td class="text-right"><button class="main-btn icon-btn"><i class="fa fa-close"></i></button></td>
-									</tr>									
+									</tr>
 								</tbody>
 								<tfoot>
 									<tr>
@@ -232,7 +244,7 @@
 					verifyLogin();
 					$(".header-cart").remove();
 				});
-				
+
 				$("#footer").load("footer.html");
 			});
 		});
