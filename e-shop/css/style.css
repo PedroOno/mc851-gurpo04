@@ -1559,9 +1559,10 @@ textarea.input {
 /*-- shopping cart table --*/
 
 .shopping-cart-table>tbody>tr>td, .shopping-cart-table>tbody>tr>th, .shopping-cart-table>tfoot>tr>td, .shopping-cart-table>tfoot>tr>th, .shopping-cart-table>thead>tr>td, .shopping-cart-table>thead>tr>th {
-  padding: 15px 0px;
   vertical-align: middle;
   border-top: 1px solid #DADADA;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 .shopping-cart-table>thead>tr>th {
@@ -1591,11 +1592,9 @@ textarea.input {
 }
 
 .shopping-cart-table>tbody>tr>.thumb>img {
-  width: 60px;
 }
 
 .shopping-cart-table>tbody>tr>.qty .input {
-  width: 90px;
 }
 
 .shopping-cart-table>tbody>tr>.price {
