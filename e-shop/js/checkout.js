@@ -1,3 +1,7 @@
+var total = 0;
+var pac = 0;
+var sedex = 0;
+
 $(function(){
   $("#buscar-endereco").click(function(e){
     e.preventDefault();
@@ -20,22 +24,33 @@ $(function(){
     });
   });
 
+  $('input[type=radio][name=shipping]').change(function() {
+      var frete = 0;
+      if (this.id == 'shipping-1') {//sedex
+          frete = sedex;
+      }
+      else if (this.id == 'shipping-2') {//pac
+          frete = pac;
+      }
+
+      $("#valor-frete").html("R$" + frete.toFixed(2));
+      $("#valor-total").html("R$" + (total + frete).toFixed(2));
+  });
+
   createProductList();
 });
 
 function createProductList(){
   var cart = Cookies.getJSON("cart");
-  var total = 0;
+
+  total = 0;
+
   for(var i = 0; i < cart.products.length; i++){
     var product = cart.products[i];
     total += addToFinalCart(product);
   }
 
-  var frete = 0;
-
-  $("#valor-frete").html("R$" + frete.toFixed(2));
   $("#sub-total").html("R$" + total.toFixed(2));
-  $("#valor-total").html("R$" + (total + frete).toFixed(2));
 }
 
 function addToFinalCart(item){
@@ -73,7 +88,7 @@ function addToFinalCart(item){
 
   return total;
 }
-  
+
 function calculaFrete(){
     $.ajax({
         type: "POST",
@@ -83,12 +98,26 @@ function calculaFrete(){
             "CEP": $("#cep").val()
         },
         success: function(data){
-            $("#precoPAC").html(data.valor);
-            $("#precoSEDEX").html(data.valor);
+            sedex = data.valor;
+            pac = 1000;
+
+            $("#precoPAC").html(pac.toFixed(2));
+            $("#precoSEDEX").html(sedex.toFixed(2));
+
+            var idFrete = $('input[name=shipping]:checked').attr("id");
+            if(idFrete === 'shipping-1'){//sedex
+              $("#valor-frete").html("R$" + sedex.toFixed(2));
+              $("#valor-total").html("R$" + (total + sedex).toFixed(2));
+            }else {//pac
+              $("#valor-frete").html("R$" + pac.toFixed(2));
+              $("#valor-total").html("R$" + (total + pac).toFixed(2));
+            }
+
             // $("#precoPAC").html(data.pac);
             // $("#precoSEDEX").html(data.sedex);
             $('#aba-frete').css("display", "block");
             $('#aba-pagamentos').css("display", "block");
+            $("#resumo").css("visibility", "visible");
 
         },
         error: function(error){
