@@ -2,7 +2,7 @@ var CLIENTS_API_URL = "http://ec2-18-231-28-232.sa-east-1.compute.amazonaws.com:
 var ENDERECOS_API_URL = "http://wsendereco.tk/api/enderecos";
 var SITE_API_URL = "http://ec2-54-233-234-42.sa-east-1.compute.amazonaws.com:4000/api/v1";
 var api_produtos = "http://ec2-18-218-218-216.us-east-2.compute.amazonaws.com:8080/api";
-
+let FRETE_API_URL = "https://frete-grupo06.herokuapp.com/search/"
 var cart;
 
 function loadCart(){
@@ -125,7 +125,7 @@ function verifyLogin(){
       $.get( SITE_API_URL + "/cpf/" + email, function( data ) {
           var json = JSON.parse(data);
           if(json.status == 200){
-              $.post( CLIENTS_API_URL + "/users/" + json.cpf, 
+              $.post( CLIENTS_API_URL + "/users/" + json.cpf,
                       { tokenSessao : token }, function( data ) {
 
                   data.cpf = json.cpf;
