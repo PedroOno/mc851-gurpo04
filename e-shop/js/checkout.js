@@ -71,7 +71,7 @@ function addToFinalCart(item){
 
   var html = $.parseHTML(
     "<tr>\
-      <td class=\"thumb\"><img src=\"" + image + "\" alt=\"\"></td>\
+      <td class=\"thumb\"><img src=\"" + image + "\" alt=\"\" style=\"width:60px;height:60px;\"></td>\
       <td class=\"details\">\
         <a href=\"" + url + "\">" + item.name + "</a>\
         <ul>\
