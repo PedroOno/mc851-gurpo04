@@ -34,6 +34,9 @@ function calculaFrete(){
             $("#precoSEDEX").html(data.valor);
             // $("#precoPAC").html(data.pac);
             // $("#precoSEDEX").html(data.sedex);
+            $('#aba-frete').css("display", "block");
+            $('#aba-pagamentos').css("display", "block");
+
         },
         error: function(error){
             $("#alert-cep").css("display", "block");
