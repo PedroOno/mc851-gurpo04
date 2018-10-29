@@ -61,7 +61,6 @@ function loadHistory(){
                 <td>" + situacao + "</td>\
                 <td>-</td>\
                 <td>-</td>\
-                <td>-</td>\
             </tr>"
         }
 

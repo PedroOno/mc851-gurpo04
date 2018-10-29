@@ -51,10 +51,10 @@
             data: JSON.stringify({
                 email: $("#email2").val(),
                 senha: $("#password2").val(),
-                cpf: $("#cpf").val(),
+                cpf: $("#cpf").cleanVal(),
                 nome: $("#nome").val(),
                 dataDeNascimento: $("#nascimento").val(),
-                telefone: $("#telefone").val(),
+                telefone: $("#telefone").cleanVal(),
                 idGrupo: 0
             }),
             success: function(data){
@@ -71,14 +71,18 @@
         });
     }
 
+    $("#cpf").mask("000.000.000-00");
+    $("#cep").mask("00000-000");
+    $("#telefone").mask("(00)000000000");
+
     function registerAddress(sessionToken){
       $.ajax({
           type: "POST",
-          url: CLIENTS_API_URL + "/addresses/" + $("#cpf").val() + "/add",
+          url: CLIENTS_API_URL + "/addresses/" + $("#cpf").cleanVal() + "/add",
           contentType : "application/json",
           data: JSON.stringify({
               "tokenSessao": sessionToken,
-              "cep": $("#cep").val(),
+              "cep": $("#cep").cleanVal(),
               "rua": $("#endereco").val(),
               "bairro": $("#bairro").val(),
               "numeroCasa": $("#numero-casa").val(),
@@ -102,7 +106,7 @@
             url: SITE_API_URL + "/cpf",
             data: {
                 "email": $("#email2").val(),
-                "cpf": $("#cpf").val(),
+                "cpf": $("#cpf").cleanVal(),
             },
             success: function(data){
                 console.log("site register response: " + data);
