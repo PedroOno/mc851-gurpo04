@@ -118,7 +118,7 @@ function verifyLogin(){
       if(usuario !== undefined){
           if(usuario.email === email){
               populateUserData(usuario);
-              return;
+              return true;
           }
       }
 
@@ -134,7 +134,11 @@ function verifyLogin(){
               });
           }
       });
+
+      return false;
   }
+
+  return false;
 }
 
 function populateUserData(usuario){

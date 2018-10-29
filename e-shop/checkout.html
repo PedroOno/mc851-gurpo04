@@ -99,7 +99,7 @@
 								<input class="input" id="complemento" type="text" name="complemento" placeholder="Complemento">
 							</div>
 							<div id="alert-cep" class="alert alert-danger" style="display: none;" role="alert">
-								Falha ao calcular frete
+								Falha ao calcular frete. Verifique os dados de entrega e tente novamente.
 							</div>
 							<div>
 								<button id="calc-frete" class="primary-btn" style="float: right;">Calcular Frete</button>
@@ -126,28 +126,39 @@
 							<div class="section-title">
 								<h4 class="title">Pagamento</h4>
 							</div>
+							<div id="alert-cartao" class="alert alert-danger" style="display: none;" role="alert">
+								Verifique os dados do cartão e tente novamente
+							</div>
 							<div class="input-checkbox">
+									<input type="radio" name="payments" id="payments-2">
+									<label for="payments-2">Boleto Bancário</label>
+									<div class="caption">
+										<p>Será gerado um boleto ao final da compra.<p>
+									</div>
+								</div>
+							<div class="input-checkbox">	
 								<input type="radio" name="payments" id="payments-1" checked>
-								<label for="payments-1">Direct Bank Transfer</label>
-								<div class="caption">
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-										<p>
-								</div>
-							</div>
-							<div class="input-checkbox">
-								<input type="radio" name="payments" id="payments-2">
-								<label for="payments-2">Cheque Payment</label>
-								<div class="caption">
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-										<p>
-								</div>
-							</div>
-							<div class="input-checkbox">
-								<input type="radio" name="payments" id="payments-3">
-								<label for="payments-3">Paypal System</label>
-								<div class="caption">
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-										<p>
+								<label for="payments-1">Cartão de Crédito ou Débito</label>
+								<div class="caption" style="padding: 16px;margin-left: 16px;">
+									<div class="form-group">
+										<input class="input" id="numero-cartao" type="text" name="numero-cartao" placeholder="Número do cartão"/>
+										<input class="input" id="nome-cartao" type="text" name="nome-cartao" placeholder="Nome como escrito no cartão"/>
+										<input class="input" id="vencimento-cartao" type="text" name="vencimento-cartao" placeholder="Data de vencimento"/>
+										<input class="input" id="ccv" type="text" name="numero-cartao" placeholder="Código CCV"/>
+									</div>
+									<label for="parcelas-1">Forma de pagamento</label>
+									<div class="input-checkbox" style="padding: 8px;">
+										<input type="radio" name="parcelas" id="parcelas-0"/>
+										<label for="parcelas-0">Débito à vista</label>
+										<input type="radio" name="parcelas" id="parcelas-1" checked/>
+										<label for="parcelas-1">Crédito à vista</label>
+										<input type="radio" name="parcelas" id="parcelas-2"/>
+										<label for="parcelas-2">2 parcelas</label></label>
+										<input type="radio" name="parcelas" id="parcelas-3"/>
+										<label for="parcelas-3">3 parcelas</label></label>
+										<input type="radio" name="parcelas" id="parcelas-4"/>
+										<label for="parcelas-4">4 parcelas</label></label>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -190,8 +201,8 @@
 									</tr>
 								</tfoot>
 							</table>
-							<div class="pull-right" style="display: none;">
-								<button class="primary-btn" id="botao-comprar">Comprar</button>
+							<div class="pull-right">
+								<button class="primary-btn" id="botao-comprar" style="display: none;">Comprar</button>
 							</div>
 						</div>
 
@@ -215,13 +226,18 @@
 	<script src="js/nouislider.min.js"></script>
 	<script src="js/jquery.zoom.min.js"></script>
 	<script src="js/js.cookie.js"></script>
+	<script src="js/scrollto.min.js"></script>
+	<script src="js/jquery.mask.min.js"></script>
+	<script src="js/moment.min.js"></script>
 	<script src="js/main.js"></script>
 	<script src="js/checkout.js"></script>
 	<script>
 		$(document).ready(function() {
 			$(window).load(function(){
 				$("#header").load("header.html", function(){
-					verifyLogin();
+					if(verifyLogin() === false){
+						window.location.href = "./cadastro.html";
+					}
 					$(".header-cart").remove();
 				});
 

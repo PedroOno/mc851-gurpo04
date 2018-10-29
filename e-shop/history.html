@@ -83,42 +83,10 @@
                                         <th>Situação da Entrega</th>
 									</tr>
 								</thead>
-								<tbody>
-									<tr>
-										<td class="thumb"><img src="./img/thumb-product01.jpg" alt=""></td>
-										<td class="details">
-											<a href="#">Product Name Goes Here</a>
-											<ul>
-												<li><span>Marca: XL</span></li>
-											</ul>
-										</td>
-										<td class="price text-center"><strong>$32.50</strong><br><del class="font-weak"><small>$40.00</small></del></td>
-										<td class="qty text-center"><input class="input" type="number" value="1"></td>
-										<td class="total text-center"><strong class="primary-color">$32.50</strong></td>
-										<td class="text-right"><button class="main-btn icon-btn"><i class="fa fa-close"></i></button></td>
-									</tr>
+								<tbody id="history-table">
+									
 								</tbody>
-								<tfoot>
-									<tr>
-										<th class="empty" colspan="3"></th>
-										<th>SUBTOTAL</th>
-										<th colspan="2" class="sub-total">$97.50</th>
-									</tr>
-									<tr>
-										<th class="empty" colspan="3"></th>
-										<th>FRETE</th>
-										<td colspan="2">Grátis</td>
-									</tr>
-									<tr>
-										<th class="empty" colspan="3"></th>
-										<th>TOTAL</th>
-										<th colspan="2" class="total">$97.50</th>
-									</tr>
-								</tfoot>
 							</table>
-							<div class="pull-right">
-								<button class="primary-btn">Comprar</button>
-							</div>
 						</div>
 
 					</div>
@@ -142,13 +110,17 @@
 	<script src="js/jquery.zoom.min.js"></script>
 	<script src="js/js.cookie.js"></script>
 	<script src="js/main.js"></script>
-	<script src="js/checkout.js"></script>
+	<script src="js/history.js"></script>
 	<script>
 		$(document).ready(function() {
 			$(window).load(function(){
 				$("#header").load("header.html", function(){
-					verifyLogin();
+					if(verifyLogin() === false){
+						window.location.href = "./cadastro.html";
+					}
 					$(".header-cart").remove();
+
+					loadHistory();
 				});
 
 				$("#footer").load("footer.html");
