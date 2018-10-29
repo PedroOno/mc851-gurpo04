@@ -30,6 +30,14 @@ function loadCart(){
   }
 }
 
+function clearCart(){
+  cart = {
+    products: []
+  };
+
+  Cookies.set("cart", cart);
+}
+
 function addToCart(item, updateCart){
   if(updateCart){
     $('.header-cart').addClass("open");

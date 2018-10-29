@@ -39,7 +39,7 @@ function loadHistory(){
                     }else{//boleto
                         if(pag_response.status === true){
                             //TODO: verificar situação do boleto
-                            situacao = "<a style='color:blue;' onclick=\"alert('Número do boleto: " + pag_response.num_boleto + "')\">Aguardando Pagamento</a>";
+                            situacao = "<a href='#' style='color:blue;' onclick=\"alert('Número do boleto: " + pag_response.num_boleto + "')\">Aguardando Pagamento</a>";
                         }else{
                             situacao = "Boleto inválido";
                         }
@@ -47,6 +47,9 @@ function loadHistory(){
                     break;
                 case 2:
                     situacao = "Envio Realizado";
+                    break;
+                case 3:
+                    situacao = "Pedido Cancelado";
                     break;
             }
 
@@ -56,9 +59,9 @@ function loadHistory(){
                 <td>" + card_details.data_emissao_pedido + "</td>\
                 <td>" + pagamento + "</td>\
                 <td>" + situacao + "</td>\
-                <td>a</td>\
-                <td>a</td>\
-                <td>a</td>\
+                <td>-</td>\
+                <td>-</td>\
+                <td>-</td>\
             </tr>"
         }
 

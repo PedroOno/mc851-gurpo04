@@ -126,6 +126,7 @@ function comprar(){
                 }
             }).always(function(data){
                 console.log(data);
+                clearCart();
                 window.location.href = "./history.html";
             });
         }else{
@@ -144,6 +145,7 @@ function comprar(){
             }
         }).always(function(data){
             console.log(data);
+            clearCart();
             window.location.href = "./history.html";
         });
     }
