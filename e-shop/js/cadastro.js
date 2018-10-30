@@ -133,7 +133,7 @@
     }
 
     $('#cep').change(function(){
-        var cep = $(this).val();
+        var cep = $(this).cleanVal();
         $.ajax({
             type: "GET",
             url: ENDERECOS_API_URL + "/cep/" + cep,
