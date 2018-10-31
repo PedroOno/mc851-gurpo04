@@ -312,14 +312,6 @@ textarea.input {
   padding-bottom: 15px;
 }
 
-/*=========================================================
-	02 -> HEADER PARA CADASTRO
-===========================================================*/
-#header2 {
-  padding-top: 15px;
-  padding-bottom: 15px;
-    background-color: #30323A;
-}
 /*----------------------------*\
 	Top header
 \*----------------------------*/
@@ -367,22 +359,12 @@ textarea.input {
   max-width: 400px;
 }
 
-.usar-endereco {
-  margin-top: 5px;
-  margin-bottom: 10px;
-}
-
-.header-search2 {
-  display: inline-block;
-  margin-bottom: 15px;
-  max-width: 400px;
-}
-
 .header-search>form {
   position: relative;
 }
 
 .header-search>form .search-input {
+  padding-left: 150px;
   padding-right: 45px;
 }
 
@@ -390,7 +372,7 @@ textarea.input {
   position: absolute;
   left: 0px;
   top: 0px;
-  width: 300px;
+  width: 135px;
 }
 
 .header-search>form .search-btn {
@@ -1217,15 +1199,6 @@ textarea.input {
   border-bottom: 1px solid #DADADA;
 }
 
-.product-image {
-  background-size: contain;
-  position: absolute;
-  background-position: center;
-  background-repeat: no-repeat;
-  height: 100%;
-  width: 100%;
-}
-
 /*-- store filter --*/
 
 .row-filter {
@@ -1559,10 +1532,9 @@ textarea.input {
 /*-- shopping cart table --*/
 
 .shopping-cart-table>tbody>tr>td, .shopping-cart-table>tbody>tr>th, .shopping-cart-table>tfoot>tr>td, .shopping-cart-table>tfoot>tr>th, .shopping-cart-table>thead>tr>td, .shopping-cart-table>thead>tr>th {
+  padding: 15px 0px;
   vertical-align: middle;
   border-top: 1px solid #DADADA;
-  padding-left: 10px;
-  padding-right: 10px;
 }
 
 .shopping-cart-table>thead>tr>th {
@@ -1592,9 +1564,11 @@ textarea.input {
 }
 
 .shopping-cart-table>tbody>tr>.thumb>img {
+  width: 60px;
 }
 
 .shopping-cart-table>tbody>tr>.qty .input {
+  width: 90px;
 }
 
 .shopping-cart-table>tbody>tr>.price {
