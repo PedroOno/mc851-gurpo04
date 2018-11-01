@@ -290,7 +290,7 @@ function logAPIAccess(api){
   $.ajax({
     "async": true,
     "crossDomain": true,
-    "url": SITE_API_URL + "/apilog?api="+api,
+    "url": SITE_API_URL + "/apilog/"+api,
     "method": "GET",
     "headers": {
       "cache-control": "no-cache",
