@@ -37,6 +37,9 @@ function getProducts(){
         statusCode: {
             200: function(data) {
               for(var i = 0; i < data.content.length; i++){
+                  if(i % 3 == 0) {
+                    $("#productsList").append("<div class=\"clearfix visible-sd-block\"></div>");
+                  }
                   var item = data.content[i];
                   if(item.availableToSell){
                     addProduct(item);
