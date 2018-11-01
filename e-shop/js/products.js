@@ -8,10 +8,11 @@ function getProducts(){
     var categoria = urlParams.get('categoria');
     var marca = urlParams.get('marca');
     var pagina = urlParams.get('pagina');
+    var promocao = urlParams.get('promocao');
 
     var data = {
         page: pagina == null? 0 : pagina,
-        itemsPerPage: 9        
+        itemsPerPage: 99        
     }
 
     if(nome != null){
@@ -36,13 +37,22 @@ function getProducts(){
         },
         statusCode: {
             200: function(data) {
+              var count = 0;
               for(var i = 0; i < data.content.length; i++){
-                  if(i % 3 == 0) {
+                  if(count % 3 == 0) {
                     $("#productsList").append("<div class=\"clearfix visible-sd-block\"></div>");
                   }
                   var item = data.content[i];
                   if(item.availableToSell){
-                    addProduct(item);
+                    if(promocao === "1"){
+                        if(item.onSale === true){
+                            addProduct(item);
+                            count++;
+                        }
+                    }else{
+                        addProduct(item);
+                        count++;
+                    }
                   }
               }
             }
