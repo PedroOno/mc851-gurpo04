@@ -284,3 +284,15 @@ function populateUserData(usuario){
   }
 
 })(jQuery);
+
+
+function logAPIAccess(api){  
+  $.ajax({
+    "async": true,
+    "crossDomain": true,
+    "url": SITE_API_URL + "/apilog?api="+api,
+    "method": "GET",
+    "headers": {
+      "cache-control": "no-cache",
+  }});
+}

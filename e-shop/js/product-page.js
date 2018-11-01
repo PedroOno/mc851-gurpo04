@@ -2,6 +2,7 @@ $(function(){
     var urlParams = new URLSearchParams(window.location.search);
     var id = urlParams.get('id');
 
+    logAPIAccess("produto");
     $.ajax({
         type: "GET",
         url: api_produtos + "/products/" + id,
@@ -96,11 +97,15 @@ function applyProduct(data){
     });
 
     //adicionar ao carrinho
-    $(".detalhes .add-to-cart").click(function(e){
-        e.stopPropagation();
-        data.quantity = parseInt($(".order-quantity").val());
-        addToCart(data, true);
-    });
+    if(data.quantityInStock > 0){
+        $(".detalhes .add-to-cart").click(function(e){
+            e.stopPropagation();
+            data.quantity = parseInt($(".order-quantity").val());
+            addToCart(data, true);
+        });
+    }else{
+        $(".product-btns").remove();
+    }
 
     //extras
     if(data.description.startsWith("{")){

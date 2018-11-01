@@ -26,6 +26,7 @@ function getProducts(){
         data.manufacturer = marca; // <-- esse filtro nao funciona (problema da api deles)
     }
 
+    logAPIAccess("produto");
     $.ajax({
         type: "GET",
         url: api_produtos + "/products",
@@ -61,7 +62,7 @@ function addProduct(item){
     stub.find(".product-name a").html(item.name);
     stub.find(".product-name a").attr("href", productUrl);
     //preco
-    if(item.onSale){
+    if(item.onSale && item.quantityInStock > 0){
         //preco em promocao
         stub.find(".product-price").html("R$" + item.promotionalValue.toFixed(2));
         //preco normal
@@ -86,18 +87,25 @@ function addProduct(item){
         if(extras.images.length > 0){
             stub.find(".product-image").css("background-image", "url(" + extras.images[0] + ")");
         }
-    }
+    }    
     
     //botoes
-    stub.find(".main-btn").click(function(){
-        window.location.href = productUrl;
-    });;
+    if(item.quantityInStock > 0){
+        stub.find(".main-btn").click(function(){
+            window.location.href = productUrl;
+        });;
 
-    stub.find(".add-to-cart").click(function(e){
-        e.stopPropagation();
-        item.quantity = 1;
-        addToCart(item, true);
-    });
+        stub.find(".add-to-cart").click(function(e){
+            e.stopPropagation();
+            item.quantity = 1;
+            addToCart(item, true);
+        });
+    }else{
+        stub.find(".main-btn").remove();
+
+        stub.find(".add-to-cart").html("Sem Estoque");
+        stub.find(".add-to-cart").attr("disabled", "true");
+    }
 
     //adiciona na lista de produtos
     stub.appendTo("#productsList");

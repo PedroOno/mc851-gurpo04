@@ -2,16 +2,6 @@ function loadHistory(){
     var cpf = Cookies.getJSON("usuario").cpf;
 
     $.get( SITE_API_URL + "/pedidos/" + cpf, function( data ) {
-        console.log(data);
-
-/* <th>Código do Pedido</th>
-<th>Data da Compra</th>
-<th>Forma de Pagamento</th>
-<th>Situação do pagamento</th>
-<th>Data de Entrega</th>
-<th>Código de Rastreio</th>
-<th>Situação da Entrega</th> */
-
         var html = "";
         for(var i = 0; i < data.length; i++){
             var pedido = data[i];
@@ -32,30 +22,35 @@ function loadHistory(){
                 case 1:
                     if(pedido.pag_type == 1){//cartao
                         if(pag_response.pagamento == 1){
-                            situacao = "Envio Pendente";
+                            situacao = "Pagamento Aprovado";
                         }else{
-                            situacao = "Pagamento Não Aprovado";
+                            situacao = "Pagamento Recusado";
                         }
                     }else{//boleto
                         if(pag_response.status === true){
                             //TODO: verificar situação do boleto
                             situacao = "<a href='#' style='color:blue;' onclick=\"alert('Número do boleto: " + pag_response.num_boleto + "')\">Aguardando Pagamento</a>";
                         }else{
-                            situacao = "Boleto inválido";
+                            situacao = "Boleto Inválido";
                         }
                     }
                     break;
                 case 2:
-                    situacao = "Envio Realizado";
+                    situacao = "Envio Pendente";
                     break;
                 case 3:
+                    situacao = "Enviado";
+                    break;
+                case 99:
                     situacao = "Pedido Cancelado";
                     break;
             }
 
+            var href = "./orders.html?pedido=" + encodeURIComponent(JSON.stringify(pedido));
+
             html += 
             "<tr>\
-                <td>SDZ" + pedido.id + "</td>\
+                <td><a style=\"color:blue;\" href=\"" + href + "\">SDZ" + pedido.id + "</a></td>\
                 <td>" + card_details.data_emissao_pedido + "</td>\
                 <td>" + pagamento + "</td>\
                 <td>" + situacao + "</td>\

@@ -44,6 +44,7 @@
 
     function doRegister(){
         $('#alert-register').css("display", "none");
+        logAPIAccess("cliente");
         $.ajax({
             type: "POST",
             url: CLIENTS_API_URL + "/register",
@@ -76,6 +77,7 @@
     $("#telefone").mask("(00)000000000");
 
     function registerAddress(sessionToken){
+      logAPIAccess("cliente");
       $.ajax({
           type: "POST",
           url: CLIENTS_API_URL + "/addresses/" + $("#cpf").cleanVal() + "/add",
@@ -115,6 +117,7 @@
     }
 
     function confirmRegister(registerToken){
+        logAPIAccess("cliente");
         $.ajax({
             type: "POST",
             url: CLIENTS_API_URL + "/confirm",
@@ -134,6 +137,7 @@
 
     $('#cep').change(function(){
         var cep = $(this).cleanVal();
+        logAPIAccess("endereco");
         $.ajax({
             type: "GET",
             url: ENDERECOS_API_URL + "/cep/" + cep,

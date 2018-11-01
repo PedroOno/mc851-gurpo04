@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
 	<meta charset="utf-8">
@@ -7,7 +7,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-	<title>E-SHOP HTML Template</title>
+	<title>Syndazon</title>
 
 	<!-- Google font -->
 	<link href="https://fonts.googleapis.com/css?family=Hind:400,700" rel="stylesheet">
@@ -38,13 +38,22 @@
 </head>
 
 <body>
+	<!-- HEADER -->
+	<header>
+
+		<!-- header -->
+		<div id="header">
+		</div>
+		<!-- container -->
+	</header>
 
 	<!-- BREADCRUMB -->
 	<div id="breadcrumb">
 		<div class="container">
 			<ul class="breadcrumb">
-				<li><a href="#">Home</a></li>
-				<li class="active">Checkout</li>
+				<li><a href="./products.html">Home</a></li>
+				<li><a href="./history.html">Pedidos</a></li>
+				<li class="active">Detalhes</li>
 			</ul>
 		</div>
 	</div>
@@ -62,19 +71,19 @@
 										<th>
 											<a>Pedido</a>
 											<ul>
-												<li>2369362-270</li>
+												<li id="cod-pedido">SDZ</li>
 											</ul>
 										</th>
-										<th
+										<th>
 											<a>Data de Criação</a>
 												<ul>
-													<li>27/10/2018</li>
+													<li id="data-pedido">00/00/0000</li>
 												</ul>
 										</th>
-										<th
+										<th>
 											<a>Total</a>
 												<ul>
-													<li>$97.50</li>
+													<li class="primary-color" id="total-pedido"></li>
 												</ul>
 										</th>
 									</tr>
@@ -83,70 +92,49 @@
 							<table class="shopping-cart-table table">
 								<thead>
 									<tr>
-										<th>Product</th>
+										<th>Produto</th>
 										<th></th>
-										<th class="text-center">Price</th>
-										<th class="text-center">Quantity</th>
+										<th class="text-center">Preço</th>
+										<th class="text-center">Quantidade</th>
 										<th class="text-center">Total</th>
 										<th class="text-right"></th>
 									</tr>
 								</thead>
-								<tbody>
-									<tr>
-										<td class="thumb"><img src="./img/thumb-product01.jpg" alt=""></td>
-										<td class="details">
-											<a href="#">Product Name Goes Here</a>
-										</td>
-										<td class="price text-center"><strong>$32.50</strong><br></td>
-										<td class="qty text-center"> 1 </td>
-										<td class="total text-center"><strong class="primary-color">$32.50</strong></td>
-									</tr>
-									<tr>
-										<td class="thumb"><img src="./img/thumb-product01.jpg" alt=""></td>
-										<td class="details">
-											<a href="#">Product Name Goes Here</a>
-										</td>
-										<td class="price text-center"><strong>$32.50</strong></td>
-										<td class="qty text-center"> 1 </td>
-										<td class="total text-center"><strong class="primary-color">$32.50</strong></td>
-									</tr>
-									<tr>
-										<td class="thumb"><img src="./img/thumb-product01.jpg" alt=""></td>
-										<td class="details">
-											<a href="#">Product Name Goes Here</a>
-										</td>
-										<td class="price text-center"><strong>$32.50</strong></td>
-										<td class="qty text-center"> 1 </td>
-										<td class="total text-center"><strong class="primary-color">$32.50</strong></td>
-									</tr>
+								<tbody id="carrinho">
+									
 								</tbody>
 								<tfoot align-content="center">
 									<tr>
 										<th class="empty" colspan="3"></th>
-										<th>STATUS DO PAGAMENTO</th>
-										<th colspan="2" class="sub-total">Aceito</th>
+										<th>MÉTODO DE PAGAMENTO</th>
+										<th colspan="2" id="metodo-pagamento"></th>
 									</tr>
 									<tr>
 										<th class="empty" colspan="3"></th>
-										<th>CÓDIGO DE RASTREIO</th>
-										<td colspan="2">BR27482947826BR</td>
+										<th>STATUS DO PAGAMENTO</th>
+										<th colspan="2" id="status-pagamento"></th>
+									</tr>
+									<tr>
+										<th class="empty" colspan="3"></th>
+										<th>STATUS DO ENVIO</th>
+										<th colspan="2" id="status-envio"></th>
+									</tr>
+									<tr id="tr-rastreio">
+										<th class="empty" colspan="3"></th>
+										<th>CÓDIGO DE <a style="color:blue;" href="http://shielded-caverns-17296.herokuapp.com/rastreio">RASTREIO</a></th>
+										<td colspan="2" id="codigo-rastreio"></td>
 									</tr>
 									<tr>
 										<th class="empty" colspan="3"></th>
 										<th>ENDEREÇO DE ENTREGA</th>
 										<td colspan="2">
 											<ul>
-												<li>Rua Treze Conceições, n°665</li>
-												<li>Santa Tereza</li>
-												<li>Campinas-SP</li>
-												<li>13050440</li>
+												<li id="rua"></li>
+												<li id="bairro"></li>
+												<li id="cidade"></li>
+												<li id="cep"></li>
 											</ul>
 										</td>
-									</tr>
-									<tr>
-										<th class="empty" colspan="3"></th>
-										<th>STATUS DO ENVIO</th>
-										<th colspan="2" class="sub-total">Recebido</th>
 									</tr>
 								</tfoot>
 							</table>
@@ -165,6 +153,33 @@
 	</div>
 	<!-- /section -->
 
+	<!-- FOOTER -->
+	<div id="footer"></div>
+	<!-- /FOOTER -->
+
+	<!-- jQuery Plugins -->
+	<script src="js/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/slick.min.js"></script>
+	<script src="js/nouislider.min.js"></script>
+	<script src="js/jquery.zoom.min.js"></script>
+	<script src="js/js.cookie.js"></script>
+	<script src="js/main.js"></script>
+	<script src="js/orders.js"></script>
+	<script>
+		$(document).ready(function() {
+			$(window).load(function(){
+				$("#header").load("header.html", function(){
+					if(verifyLogin() === false){
+						window.location.href = "./cadastro.html";
+					}
+					$(".header-cart").remove();
+				});
+
+				$("#footer").load("footer.html");
+			});
+		});
+	</script>
 </body>
 
 </html>

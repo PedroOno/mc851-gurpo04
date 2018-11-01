@@ -1728,3 +1728,12 @@ textarea.input {
     width: 100%;
   }
 }
+
+.product-image {
+  background-size: contain;
+  position: absolute;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100%;
+  width: 100%;
+}

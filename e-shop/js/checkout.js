@@ -1,13 +1,14 @@
 var total = 0;
 var pac = 0;
 var sedex = 0;
+var frete = 0;
 var json_endereco = {};
 
 $(function(){
     $("#buscar-endereco").click(function(e){
         e.preventDefault();
         var usuario = Cookies.getJSON("usuario");
-
+        logAPIAccess("cliente");
         $.get(CLIENTS_API_URL + "/users/" + usuario.cpf + "/addresses", function( data ) {
             if(data.length > 0){
                 var endereco = data[0];
@@ -20,7 +21,7 @@ $(function(){
                 $("#estado").val(endereco.estado);
                 $("#referencia").val(endereco.referencia);
 
-                calculaFrete();
+                validaEndereco();
             }
         });
     });
@@ -28,35 +29,10 @@ $(function(){
     $("#calc-frete").click(function(e){
         e.preventDefault();
 
-        var valid = true;
-        valid &= $("#cep").cleanVal().length == 8;
-        valid &= $("#endereco").val().length > 0;
-        valid &= $("#bairro").val().length > 0;
-        valid &= $("#numero-casa").val().length > 0;
-        valid &= $("#cidade").val().length > 0;
-        valid &= $("#estado").val().length > 0;
-        valid &= $("#referencia").val().length > 0;
-
-        if(valid){
-            $("#alert-cep").css("display", "none");
-            json_endereco = {
-                cep: $("#cep").cleanVal(),
-                endereco: $("#endereco").val(),
-                cidade: $("#cidade").val(),
-                estado: $("#estado").val(),
-                bairro: $("#bairro").val(),
-                referencia: $("#referencia").val(),
-                "numero-casa": $("#numero-casa").val(),
-                complemento: $("#complemento").val(),
-            }
-            calculaFrete();
-        }else{
-            $("#alert-cep").css("display", "block");
-        }
+        validaEndereco();
     });
 
     $('input[type=radio][name=shipping]').change(function() {
-        var frete = 0;
         if (this.id == 'shipping-1') {//sedex
             frete = sedex;
         }
@@ -122,7 +98,8 @@ function comprar(){
                 data: {
                     "cart": Cookies.get("cart"),
                     "card_details": JSON.stringify(card_details),
-                    "endereco": JSON.stringify(json_endereco)
+                    "endereco": JSON.stringify(json_endereco),
+                    "frete": frete
                 }
             }).always(function(data){
                 console.log(data);
@@ -141,7 +118,8 @@ function comprar(){
                 "cart": Cookies.get("cart"),
                 "cpf": Cookies.getJSON("usuario").cpf,
                 "data": moment().format("DD/MM/YYYY"),
-                "endereco": JSON.stringify(json_endereco)
+                "endereco": JSON.stringify(json_endereco),
+                "frete": frete
             }
         }).always(function(data){
             console.log(data);
@@ -200,8 +178,37 @@ function addToFinalCart(item){
   return total;
 }
 
+function validaEndereco(){
+    var valid = true;
+    valid &= $("#cep").cleanVal().length == 8;
+    valid &= $("#endereco").val().length > 0;
+    valid &= $("#bairro").val().length > 0;
+    valid &= $("#numero-casa").val().length > 0;
+    valid &= $("#cidade").val().length > 0;
+    valid &= $("#estado").val().length > 0;
+    valid &= $("#referencia").val().length > 0;
+
+    if(valid){
+        $("#alert-cep").css("display", "none");
+        json_endereco = {
+            cep: $("#cep").cleanVal(),
+            endereco: $("#endereco").val(),
+            cidade: $("#cidade").val(),
+            estado: $("#estado").val(),
+            bairro: $("#bairro").val(),
+            referencia: $("#referencia").val(),
+            "numero-casa": $("#numero-casa").val(),
+            complemento: $("#complemento").val(),
+        }
+        calculaFrete();
+    }else{
+        $("#alert-cep").css("display", "block");
+    }
+}
+
 function calculaFrete(){
   if($("#cep") !== ""){
+    logAPIAccess("logistica");
     $.ajax({
         type: "POST",
         url: FRETE_API_URL,
@@ -218,11 +225,13 @@ function calculaFrete(){
 
             var idFrete = $('input[name=shipping]:checked').attr("id");
             if(idFrete === 'shipping-1'){//sedex
-              $("#valor-frete").html("R$" + sedex.toFixed(2));
-              $("#valor-total").html("R$" + (total + sedex).toFixed(2));
+                frete = sedex;
+                $("#valor-frete").html("R$" + sedex.toFixed(2));
+                $("#valor-total").html("R$" + (total + sedex).toFixed(2));
             }else {//pac
-              $("#valor-frete").html("R$" + pac.toFixed(2));
-              $("#valor-total").html("R$" + (total + pac).toFixed(2));
+                frete = pac;
+                $("#valor-frete").html("R$" + pac.toFixed(2));
+                $("#valor-total").html("R$" + (total + pac).toFixed(2));
             }
 
             // $("#precoPAC").html(data.pac);
