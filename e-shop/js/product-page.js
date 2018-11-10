@@ -114,7 +114,7 @@ function applyProduct(data){
 
         //descricao
         if(extras.desc !== undefined){
-            $(".description").html(data.description.desc);
+            $(".description").html(extras.desc);
         }
 
         if(extras.images !== undefined){
